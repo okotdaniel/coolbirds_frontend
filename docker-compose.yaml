@@ -1,0 +1,47 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      
+    image: frontend_image
+
+    environment:
+      NODE_ENV: development
+    
+    ports:
+      [3000:3000]
+
+    volumes:
+      [".:/frontend","/frontend/node_modules"]
+      
+    command: 
+      npm run dev
+    # depends_on:
+    #   database:
+    #     condition: service_healthy
+  # database:
+  #   image: postgres
+  #   restart: always
+  #   user: postgres
+  #   secrets:
+  #     - db-password
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_DB=example
+  #     - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+  #   expose:
+  #     - 5432
+  #   healthcheck:
+  #     test: [ "CMD", "pg_isready" ]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+# volumes:
+#   db-data:
+
+# secrets:
+#   db-password:
+#     file: db/password.txt
