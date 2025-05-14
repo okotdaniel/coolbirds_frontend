@@ -13,9 +13,6 @@ import { useState, useEffect } from "react"
 import { useAppDispatch } from "@/lib/redux/hooks/hooks"
 
 import { type Supplier, addSupplier, updateSupplier } from "@/lib/api/supplier/supplierApiSlice"
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
-
 
 interface SupplierFormProps {
   open: boolean
