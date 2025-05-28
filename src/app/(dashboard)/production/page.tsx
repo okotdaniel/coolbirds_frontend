@@ -22,8 +22,8 @@ import { ProductionForm } from "@/components/forms/production-form"
 import { DeleteConfirmation } from "@/components/common/delete-confirmation"
 
 
-import { type ProductionProp, deleteProductionRecord } from "@/lib/api/production/producerApiSlice"
-import ProductionList from '@/components/dashboard/production/production-list'
+import { type ProductionInterface, deleteProductionRecord } from "@/lib/api/production/producerApiSlice"
+import ProductionList from '@/components/dashboard/production/prodcution/production-list'
 import { useState } from "react"
 import { useAppSelector, useAppDispatch } from "@/lib/redux/hooks/hooks"
 
@@ -37,14 +37,14 @@ export default function Page() {
   const [selectedPeriod, setSelectedPeriod] = useState("week")
   const [formOpen, setFormOpen] = useState(false)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedRecord, setSelectedRecord] = useState<ProductionProp | null>(null)
+  const [selectedRecord, setSelectedRecord] = useState<ProductionInterface | null>(null)
 
-  const handleEdit = (record: ProductionProp) => {
+  const handleEdit = (record: ProductionInterface) => {
     setSelectedRecord(record)
     setFormOpen(true)
   }
 
-  const handleDelete = (record: ProductionProp) => {
+  const handleDelete = (record: ProductionInterface) => {
     setSelectedRecord(record)
     setDeleteDialogOpen(true)
   }
@@ -174,16 +174,6 @@ export default function Page() {
 
             </Tabs>
 
-            <ProductionForm open={formOpen} onOpenChange={setFormOpen} initialData={selectedRecord} />
-
-            <DeleteConfirmation
-              open={deleteDialogOpen}
-              onOpenChange={setDeleteDialogOpen}
-              onConfirm={confirmDelete}
-              entityName="production record"
-              title="Delete Production Record"
-              description={`Are you sure you want to delete this production record from ${selectedRecord?.date}?`}
-            />
           </div>
 
         

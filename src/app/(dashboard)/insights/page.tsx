@@ -33,7 +33,7 @@ export default function Page() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Customers</BreadcrumbPage>
+                  <BreadcrumbPage>Nkoko AI</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -50,7 +50,7 @@ export default function Page() {
           <div className="grid gap-4">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              <h2 className="text-3xl font-bold tracking-tight">AI Insights</h2>
+              <h2 className="text-3xl font-bold tracking-tight">Nkoko AI Insights</h2>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">

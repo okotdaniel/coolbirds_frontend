@@ -37,14 +37,13 @@ interface RegisterInterface{
   // acceptTerms: boolean,
 }
 
-const BASE_URL = 'http://localhost:8000/api/v1'
-
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export const loginUser = createAsyncThunk( 
   "accounts/login", 
   async (credentials: LoginCredential, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${BASE_URL}/accounts/login`, {
+      const response = await fetch(`${baseUrl}/accounts/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
@@ -72,7 +71,7 @@ export const registerUser = createAsyncThunk(
   async (credentials: RegisterInterface, { rejectWithValue }) => {
     try {
 
-      const response = await fetch(`${BASE_URL}/account/users/`, {
+      const response = await fetch(`${baseUrl}/account/users/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),

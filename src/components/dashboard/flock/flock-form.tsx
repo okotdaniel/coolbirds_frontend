@@ -1,45 +1,37 @@
-"use client"
+'use client'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 
-import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon } from "lucide-react"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
-
+import { useState, useEffect } from "react"
 import { useAppDispatch } from "@/lib/redux/hooks/hooks"
-import { type Flock, addFlock, updateFlock } from "@/lib/redux/slices/flock/flockSlice"
 
-const formSchema = z.object({
-  id: z.string().optional(),
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  type: z.string().min(1, { message: "Type is required" }),
-  breed: z.string().min(1, { message: "Breed is required" }),
-  house: z.string().min(1, { message: "House is required" }),
-  quantity: z.coerce.number().min(1, { message: "Quantity must be at least 1" }),
-  age: z.coerce.number().min(0, { message: "Age must be a positive number" }),
-  status: z.string().min(1, { message: "Status is required" }),
-  startDate: z.date(),
-  productionRate: z.coerce.number().min(0).max(100, { message: "Production rate must be between 0 and 100" }),
-  mortality: z.coerce.number().min(0).max(100, { message: "Mortality must be between 0 and 100" }),
-  avgWeight: z.coerce.number().min(0, { message: "Average weight must be a positive number" }),
-})
-
-type FormValues = z.infer<typeof formSchema>
+import { type Supplier, addSupplier, updateSupplier } from "@/lib/api/supplier/supplierApiSlice"
 
 interface FlockFormProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  initialData?: Flock | null
+  initialData?: Supplier | null
 }
+
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  category: z.string().min(1, { message: "Category is required" }),
+  contact: z.string().min(2, { message: "Contact name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  phone: z.string().min(10, { message: "Phone number is required" }),
+  address: z.string().min(5, { message: "Address is required" }),
+  website: z.string().min(5, { message: "Website is required" }),
+  rating: z.coerce.number().min(0).max(5, { message: "Rating must be between 0 and 5" }),
+  status: z.string().min(1, { message: "Status is required" }),
+})
+
+type FormValues = z.infer<typeof formSchema>
 
 export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
   const dispatch = useAppDispatch()
@@ -48,53 +40,42 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: "",
       name: "",
-      type: "",
-      breed: "",
-      house: "",
-      quantity: 0,
-      age: 0,
-      status: "Growing",
-      startDate: new Date(),
-      productionRate: 0,
-      mortality: 0,
-      avgWeight: 0,
+      category: "",
+      contact: "",
+      email: "",
+      phone: "",
+      address: "",
+      website: "",
+      rating: 4.0,
+      status: "Active",
     },
   })
 
   useEffect(() => {
     if (initialData) {
       form.reset({
-        id: initialData.id,
         name: initialData.name,
-        type: initialData.type,
-        breed: initialData.breed,
-        house: initialData.house,
-        quantity: initialData.quantity,
-        age: initialData.age,
+        category: initialData.category,
+        contact: initialData.contact,
+        email: initialData.email,
+        phone: initialData.phone,
+        address: initialData.address,
+        website: initialData.website,
+        rating: initialData.rating,
         status: initialData.status,
-        startDate: new Date(initialData.startDate),
-        productionRate: initialData.productionRate,
-        mortality: initialData.mortality,
-        avgWeight: initialData.avgWeight,
       })
     } else {
       form.reset({
-        id: `FL${Math.floor(Math.random() * 10000)
-          .toString()
-          .padStart(4, "0")}`,
         name: "",
-        type: "",
-        breed: "",
-        house: "",
-        quantity: 0,
-        age: 0,
-        status: "Growing",
-        startDate: new Date(),
-        productionRate: 0,
-        mortality: 0,
-        avgWeight: 0,
+        category: "",
+        contact: "",
+        email: "",
+        phone: "",
+        address: "",
+        website: "",
+        rating: 4.0,
+        status: "Active",
       })
     }
   }, [initialData, form, open])
@@ -102,20 +83,11 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true)
     try {
-      const flock: Flock = {
-        ...values,
-        id:
-          values.id ||
-          `FL${Math.floor(Math.random() * 10000)
-            .toString()
-            .padStart(4, "0")}`,
-        startDate: format(values.startDate, "MMM dd, yyyy"),
-      }
-
+      
       if (initialData) {
-        dispatch(updateFlock(flock))
+        dispatch(updateSupplier(values))
       } else {
-        dispatch(addFlock(flock))
+        dispatch(addSupplier(values))
       }
 
       onOpenChange(false)
@@ -130,9 +102,9 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>{initialData ? "Edit Flock" : "Add Flock"}</DialogTitle>
+          <DialogTitle>{initialData ? "Edit Supplier" : "Add Supplier"}</DialogTitle>
           <DialogDescription>
-            {initialData ? "Update the flock details below." : "Fill in the details of the new flock below."}
+            {initialData ? "Update the supplier details below." : "Fill in the details of the new supplier below."}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -143,9 +115,9 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Flock Name</FormLabel>
+                    <FormLabel>Company Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Flock name" {...field} />
+                      <Input placeholder="Company name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -153,20 +125,24 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
               />
               <FormField
                 control={form.control}
-                name="type"
+                name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Type</FormLabel>
+                    <FormLabel>Category</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select type" />
+                          <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Layer">Layer</SelectItem>
-                        <SelectItem value="Broiler">Broiler</SelectItem>
-                        <SelectItem value="Breeder">Breeder</SelectItem>
+                        <SelectItem value="Feed supplies">Feed supplies</SelectItem>
+                        <SelectItem value="Feed supplements">Feed supplements</SelectItem>
+                        <SelectItem value="Technology">Technology</SelectItem>
+                        <SelectItem value="Equipment">Equipment</SelectItem>
+                        <SelectItem value="Packaging">Packaging</SelectItem>
+                        <SelectItem value="Veterinary supplies">Veterinary supplies</SelectItem>
+                        <SelectItem value="Cleaning supplies">Cleaning supplies</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -177,75 +153,26 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
-                name="breed"
+                name="contact"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Breed</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select breed" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Hy-Line Brown">Hy-Line Brown</SelectItem>
-                        <SelectItem value="Hy-Line White">Hy-Line White</SelectItem>
-                        <SelectItem value="Lohmann Brown">Lohmann Brown</SelectItem>
-                        <SelectItem value="Ross 308">Ross 308</SelectItem>
-                        <SelectItem value="Cobb 500">Cobb 500</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="house"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>House</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select house" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="House 1">House 1</SelectItem>
-                        <SelectItem value="House 1 (Section B)">House 1 (Section B)</SelectItem>
-                        <SelectItem value="House 2">House 2</SelectItem>
-                        <SelectItem value="House 3">House 3</SelectItem>
-                        <SelectItem value="House 3 (Section B)">House 3 (Section B)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="quantity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Quantity</FormLabel>
+                    <FormLabel>Contact Person</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input placeholder="Contact name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
-                name="age"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Age (days)</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="email" placeholder="Email address" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -253,6 +180,60 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Phone number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="website"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Website</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Website URL" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Full address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="rating"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Rating (0-5)</FormLabel>
+                    <FormControl>
+                      <Input type="number" step="0.1" min="0" max="5" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="status"
@@ -266,78 +247,11 @@ export function FlockForm({ open, onOpenChange, initialData }: FlockFormProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Growing">Growing</SelectItem>
-                        <SelectItem value="Productive">Productive</SelectItem>
-                        <SelectItem value="Depleting">Depleting</SelectItem>
+                        <SelectItem value="Active">Active</SelectItem>
+                        <SelectItem value="Inactive">Inactive</SelectItem>
+                        <SelectItem value="Blacklisted">Blacklisted</SelectItem>
                       </SelectContent>
                     </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Start Date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
-                          >
-                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar mode="single" selected={field.value} onSelect={field.onChange} initialFocus />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              <FormField
-                control={form.control}
-                name="productionRate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Production Rate (%)</FormLabel>
-                    <FormControl>
-                      <Input type="number" min="0" max="100" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="mortality"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Mortality (%)</FormLabel>
-                    <FormControl>
-                      <Input type="number" min="0" max="100" step="0.1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="avgWeight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Avg Weight (kg)</FormLabel>
-                    <FormControl>
-                      <Input type="number" min="0" step="0.1" {...field} />
-                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

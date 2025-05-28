@@ -92,7 +92,7 @@ export default function PasswordResetPage() {
 								<p className="text-sm text-red-500">{passwordResetForm.formState.errors.email.message}</p>
 							)}
 						</div>
-						<Button type="submit" className="w-full bg-blue-800 hover:bg-blue-700" disabled={isLoading}>
+						<Button type="submit" className="w-full bg-blue-700 hover:bg-blue-600" disabled={isLoading}>
                             { isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

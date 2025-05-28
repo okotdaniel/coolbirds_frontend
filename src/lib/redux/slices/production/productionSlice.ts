@@ -1,9 +1,9 @@
 import { createSlice  } from "@reduxjs/toolkit"
   
-import {type ProductionProp, fetchProductionRecords, addProductionRecord, updateProductionRecord, deleteProductionRecord } from "@/lib/api/production/producerApiSlice"
+import {type ProductionInterface, fetchProductionRecords, addProductionRecord, updateProductionRecord, deleteProductionRecord } from "@/lib/api/production/producerApiSlice"
 
 interface ProductionState {
-  produce: ProductionProp[]
+  produce: ProductionInterface[]
   loading: boolean
   error: string | null
 }

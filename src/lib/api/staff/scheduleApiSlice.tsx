@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export interface StaffScheduleProps{
     staff: string, 
@@ -25,7 +25,7 @@ export const getAllSchedules = createAsyncThunk(
     'schedule/getAllSchedules',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${BASE_URL}/schedule/`, {
+            const response = await fetch(`${baseUrl}/schedule/`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -47,7 +47,7 @@ export const addSchedule = createAsyncThunk(
     'schedule/addSchedule/',
     async (body: StaffScheduleProps, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/schedule/`, {
+        const response = await fetch(`${baseUrl}/schedule/`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -71,7 +71,7 @@ export const addSchedule = createAsyncThunk(
     'staff/update/id',
     async (body: StaffScheduleProps, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/schedule/update`, {
+        const response = await fetch(`${baseUrl}/schedule/update`, {
           method: "PUT",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -95,7 +95,7 @@ export const deleteSchedule = createAsyncThunk(
     'deleteSchedule',
     async (body: { id: number }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/staff/delete`, {
+        const response = await fetch(`${baseUrl}/staff/delete`, {
           method: "DELETE",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -121,7 +121,7 @@ export const deleteSchedule = createAsyncThunk(
     'getScheduleById',
     async ({ id }: { id: number }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/staff/get/${id}`, {
+        const response = await fetch(`${baseUrl}/staff/get/${id}`, {
           method: "GET",
           headers: { 'Content-Type': 'application/json' },
         });

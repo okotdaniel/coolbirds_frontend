@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type Contract, getAllContracts, updateContracts }  from "@/lib/api/supplier/contractApiSlice"
-
+import { type Contract,fetchContractRecords, updateContractRecord }  from "@/lib/api/supplier/contracts/contractApiSlice"
 
 
 interface contractsState{
     contracts: Contract[];
     loading: false;
     error: string | null;
-
 }
 
 const initialState: contractsState = {
@@ -21,32 +19,32 @@ const  contractsSlice = createSlice({
     initialState,
     reducers:{ },
     extraReducers: (builder)=>{
-        builder.addCase(getAllContracts.pending, (state, action)=>{
+        builder.addCase(fetchContractRecords.pending, (state, action)=>{
             state.loading = false
         })
-        builder.addCase(getAllContracts.fulfilled, (state, action)=>{
+        builder.addCase(fetchContractRecords.fulfilled, (state, action)=>{
             state.loading = false
             state.contracts = action.payload
         })
-        builder.addCase(getAllContracts.rejected, (state, action)=>{
+        builder.addCase(fetchContractRecords.rejected, (state, action)=>{
             state.loading = false
             state.error = action.error.message
         })
 
-        builder.addCase(updateContracts.pending, (state, action)=>{
+        builder.addCase(updateContractRecord.pending, (state, action)=>{
             state.loading = false
         })
-        builder.addCase(updateContracts.fulfilled, (state, action)=>{
+        builder.addCase(updateContractRecord.fulfilled, (state, action)=>{
             state.loading = false
             state.contracts = action.payload
 
         })
-        builder.addCase(updateContracts.rejected, (state, action)=>{
+        builder.addCase(updateContractRecord.rejected, (state, action)=>{
             state.loading = false
         })
        
     }
 })
 
-export { getAllContracts, updateContracts }
+export { fetchContractRecords, updateContractRecord }
 export default contractsSlice.reducer

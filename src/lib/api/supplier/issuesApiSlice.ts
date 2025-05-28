@@ -11,8 +11,8 @@ export interface Issues{
 
 
 const BASE_API = 'http://localhost:8000/api/v1'
-export const getAllIssues = createAsyncThunk(
-    "getAllIssues",
+export const fetchIssueRecords = createAsyncThunk(
+    "fetchIssueRecords",
     async ( _, {rejectWithValue}) => {
         try{
             const response = await  fetch(`${BASE_API}/issue/`,{
@@ -38,8 +38,31 @@ export const getAllIssues = createAsyncThunk(
     }
 )
 
+export const updateIssueRecord = createAsyncThunk(
 
-export const updateIssues = createAsyncThunk(
+  'supplier/update/id',
+  async (body: Issues, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${BASE_API}/issue/${body.id}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        const errorMsg = "Failed to update supplier";
+      //   toast.error(errorMsg);
+        return rejectWithValue(errorMsg);
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addIssueRecordRecord = createAsyncThunk(
 
     'supplier/update/id',
     async (body: Issues, { rejectWithValue }) => {
@@ -63,3 +86,29 @@ export const updateIssues = createAsyncThunk(
     }
   );
     
+export const deleteIssueRecord = createAsyncThunk(
+    "fetchIssueRecords",
+    async ( _, {rejectWithValue}) => {
+        try{
+            const response = await  fetch(`${BASE_API}/issue/`,{
+                method: "GET",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                // credentials: "include"
+            })
+            if (!response.ok){
+              throw new Error("Failed to fetch suppliers");
+            }else{
+              const data = await response.json();
+              return data;
+            }
+            
+        }catch(error){
+            rejectWithValue(error.message)
+        }finally{
+            console.log("finally")
+        }
+
+    }
+)

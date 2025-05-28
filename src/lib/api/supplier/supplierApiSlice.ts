@@ -14,13 +14,13 @@ export interface Supplier {
     status: string
   }
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = 'http://localhost:8000/api/v1'
 
-export const getAllSuppliers = createAsyncThunk(
+export const fetchSupplierRecords = createAsyncThunk(
     'suppliers/getAll',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${BASE_URL}/supplier/`, {
+            const response = await fetch(`${baseUrl}/supplier/`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -43,7 +43,7 @@ export const supplierByRanking = createAsyncThunk(
   'suppliers/by_ranking',
   async (_, { rejectWithValue }) => {
       try {
-          const response = await fetch(`${BASE_URL}/supplier/by_ranking/`, {
+          const response = await fetch(`${baseUrl}/supplier/by_ranking/`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
           });
@@ -65,7 +65,7 @@ export const addSupplier = createAsyncThunk(
     'supplier/add/',
     async (body: Supplier, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/supplier/`, {
+        const response = await fetch(`${baseUrl}/supplier/`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -92,7 +92,7 @@ export const updateSupplier = createAsyncThunk(
   'supplier/update/id',
   async (body: Supplier, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${BASE_URL}/supplier/${body.id}`, {
+      const response = await fetch(`${baseUrl}/supplier/${body.id}`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -114,17 +114,16 @@ export const updateSupplier = createAsyncThunk(
 
 export const deleteSupplier = createAsyncThunk(
     'deleteSupplier',
-    async (body: { id: number }, { rejectWithValue }) => {
+    async (id: number , { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/supplier/delete`, {
+        // const id = 
+        const response = await fetch(`${baseUrl}/supplier/delete/${id}`, {
           method: "DELETE",
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
         });
         if (response.ok) {
           toast.success("Supplier deleted successfully");
-          // Return something indicative, such as the deleted supplier id.
-          return body.id;
+          
         } else {
           const errorMsg = "Failed gracefully";
           toast.error(errorMsg);
@@ -133,7 +132,7 @@ export const deleteSupplier = createAsyncThunk(
       } catch (error: any) {
         return rejectWithValue(error.message);
       } finally {
-        console.log("Passed !");
+        console.log("Passed!");
       }
     }
   );
@@ -142,7 +141,7 @@ export const deleteSupplier = createAsyncThunk(
     'getSupplierById',
     async ({ id }: { id: number }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/supplier/get/${id}`, {
+        const response = await fetch(`${baseUrl}/supplier/get/${id}`, {
           method: "GET",
           headers: { 'Content-Type': 'application/json' },
         });

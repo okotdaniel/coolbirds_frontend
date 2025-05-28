@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllStaff, addStaff, updateStaff, deleteStaff } from "@/lib/api/staff/staffApiSlice";
+import { fetchStaffRecords, addStaff, updateStaff, deleteStaff } from "@/lib/api/staff/staffApiSlice";
 import { type Staff } from '@/lib/api/staff/staffApiSlice'
 
 export interface StaffState{
@@ -18,14 +18,14 @@ const staffSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers: (builder) => {
-        builder.addCase( getAllStaff.pending, (state, action) => {
+        builder.addCase( fetchStaffRecords.pending, (state, action) => {
             state.loading = true
         })
-        builder.addCase( getAllStaff.fulfilled, (state, action) => {
+        builder.addCase( fetchStaffRecords.fulfilled, (state, action) => {
             state.loading = false
             state.staff = action.payload
         })
-        builder.addCase( getAllStaff.rejected, (state, action) => {
+        builder.addCase( fetchStaffRecords.rejected, (state, action) => {
             state.loading = false
         })
 
@@ -64,5 +64,5 @@ const staffSlice = createSlice({
 
 
 
-export { getAllStaff, addStaff, updateStaff, deleteStaff } 
+export { fetchStaffRecords, addStaff, updateStaff, deleteStaff } 
 export default staffSlice.reducer

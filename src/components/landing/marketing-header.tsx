@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Egg, Menu } from "lucide-react"
+import { Egg, Menu, BirdIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
@@ -45,8 +45,8 @@ export function MarketingHeader() {
       <div className=" flex h-16 items-center justify-center">
         <div className="flex items-center gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
-            <Egg className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">Cool Birds</span>
+            <BirdIcon className="h-6 w-6 text-blue-700 " />
+            <span className="hidden font-bold sm:inline-block text-blue-800 ">Cool Birds</span>
           </Link>
           <nav className="hidden md:flex gap-6">
             {routes.map((route) => (
@@ -70,7 +70,7 @@ export function MarketingHeader() {
             </Button>
           </Link>
           <Link href="/register">
-            <Button size="sm">Sign up</Button>
+            <Button size="sm" className="bg-blue-700 hover:bg-blue-600">Sign up</Button>
           </Link>
         </div>
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -102,12 +102,12 @@ export function MarketingHeader() {
               </nav>
               <div className="mt-8 flex flex-col gap-4">
                 <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="ghost" className="w-full justify-start">
+                  <Button variant="ghost" className=" w-full justify-start">
                     Log in
                   </Button>
                 </Link>
                 <Link href="/register" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full">Sign up</Button>
+                  <Button className="bg-blue-700 hover:bg-blue-600 w-full">Sign up</Button>
                 </Link>
               </div>
             </div>

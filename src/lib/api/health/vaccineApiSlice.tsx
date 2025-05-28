@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 
-export interface VaccineProps {
+export interface VaccineInterface {
     id?: string
     flock : string,
     vaccine_name: string,
@@ -14,13 +14,13 @@ export interface VaccineProps {
 
 
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export const fetchVaccineSchedule = createAsyncThunk(
   'suppliers/fetchVaccineSchedule',
   async (_, { rejectWithValue }) => {
       try {
-          const response = await fetch(`${BASE_URL}/vaccine/`, {
+          const response = await fetch(`${baseUrl}/vaccine/`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
           });
@@ -37,13 +37,13 @@ export const fetchVaccineSchedule = createAsyncThunk(
   }
 );
 
-export const addVaccineSchedule = createAsyncThunk("production/addRecord", async (record: VaccineProps) => {
+export const addVaccineSchedule = createAsyncThunk("production/addRecord", async (record: VaccineInterface) => {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 500))
   return record
 })
 
-export const updateVaccineSchedule = createAsyncThunk("production/updateRecord", async (record: VaccineProps) => {
+export const updateVaccineSchedule = createAsyncThunk("production/updateRecord", async (record: VaccineInterface) => {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 500))
   return record

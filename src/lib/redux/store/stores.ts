@@ -15,12 +15,15 @@ import vaccineReducer from "@/lib/redux/slices/health/vaccineSlice"
 import scheduleReducer  from "@/lib/redux/slices/staff/scheduleSlice"
 import subscriptionReducer  from "@/lib/redux/slices/pricing/subscriptionSlice"
 import transactionReducer  from "@/lib/redux/slices/pricing/transactionSlice"
+import { healthApi } from "../slices/health/beta/healthslice"
 
 
 export const store = configureStore({
   reducer: {
     // auth: authReducer,
     [authenticationApi.reducerPath]: authenticationApi.reducer,
+    [healthApi.reducerPath]: healthApi.reducer,
+
     suppliers: supplierReducer,
     ranking: supplierReducer,
     staff: staffReducer,
@@ -42,6 +45,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
     [
       authenticationApi.middleware,
+      healthApi.middleware,
     ]
   ),
 })

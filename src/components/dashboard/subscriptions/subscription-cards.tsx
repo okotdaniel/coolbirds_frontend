@@ -15,7 +15,7 @@ interface Props {
 
 export function SubscriptionCards({ subscriptions, className }: Props) {
   if (subscriptions.length === 0) {
-    return <span className={'text-base font-medium'}>No active subscriptions</span>;
+    return (<span className={'text-base font-medium'}>No active subscriptions</span>)
   } else {
     return (
       <div className={cn('grid flex-1 items-start', className)}>
@@ -45,9 +45,7 @@ export function SubscriptionCards({ subscriptions, className }: Props) {
                         height={48}
                       />
                     )}
-                    <Link href={`/dashboard/subscriptions/${subscription.id}`}>
-                      <ArrowRight size={20} />
-                    </Link>
+                    <Link href={`/dashboard/subscriptions/${subscription.id}`}> <ArrowRight size={20} /> </Link>
                   </div>
                   <span className={'text-xl leading-7 font-medium'}>{subscriptionItem.product.name}</span>
                 </CardTitle>
@@ -55,10 +53,7 @@ export function SubscriptionCards({ subscriptions, className }: Props) {
               <CardContent className={'p-0 flex justify-between gap-3 flex-wrap xl:flex-nowrap'}>
                 <div className={'flex flex-col gap-3'}>
                   <div className="text-base leading-6 text-secondary">{subscriptionItem.product.description}</div>
-                  <div className="text-base leading-[16px] text-primary">
-                    {formattedPrice}
-                    {frequency}
-                  </div>
+                  <div className="text-base leading-[16px] text-primary"> {formattedPrice}  {frequency} </div>
                 </div>
                 <Status status={subscription.status} />
               </CardContent>

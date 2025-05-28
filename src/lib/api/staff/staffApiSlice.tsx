@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export interface Staff{
     name: string
@@ -15,12 +15,13 @@ export interface Staff{
 }
 
 
-export const getAllStaff = createAsyncThunk(
+export const fetchStaffRecords = createAsyncThunk(
     'staff/get',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${BASE_URL}/staff/`, {
+            const response = await fetch(`${baseUrl}/staff/`, {
                 method: "GET",
+                credentials:"include",
                 headers: { "Content-Type": "application/json" },
             });
 
@@ -41,7 +42,7 @@ export const addStaff = createAsyncThunk(
     'staff/add/',
     async (body: Staff, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/staff/`, {
+        const response = await fetch(`${baseUrl}/staff/`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -65,7 +66,7 @@ export const addStaff = createAsyncThunk(
     'staff/update/id',
     async (body: Staff, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/staff/update`, {
+        const response = await fetch(`${baseUrl}/staff/update`, {
           method: "PUT",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -87,26 +88,27 @@ export const addStaff = createAsyncThunk(
 
 export const deleteStaff = createAsyncThunk(
     'deletestaff',
-    async (body: { id: number }, { rejectWithValue }) => {
+    async ( id: number, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/staff/delete`, {
+
+        const response = await fetch(`${baseUrl}/staff/${id}`, {
           method: "DELETE",
+          credentials: "include",
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
+          // body: JSON.stringify(body),
         });
         if (response.ok) {
           toast.success("staff deleted successfully");
-          // Return something indicative, such as the deleted staff id.
-          return body.id;
+          return response;
         } else {
-          const errorMsg = "Failed gracefully";
+          const errorMsg = "Failed to delete staff";
           toast.error(errorMsg);
           return rejectWithValue(errorMsg);
         }
       } catch (error: any) {
         return rejectWithValue(error.message);
       } finally {
-        console.log("Passed !");
+        console.log("Finally failed to delte !");
       }
     }
   );
@@ -115,7 +117,7 @@ export const deleteStaff = createAsyncThunk(
     'getstaffById',
     async ({ id }: { id: number }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/staff/get/${id}`, {
+        const response = await fetch(`${baseUrl}/staff/get/${id}`, {
           method: "GET",
           headers: { 'Content-Type': 'application/json' },
         });

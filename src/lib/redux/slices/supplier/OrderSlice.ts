@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type Order, getAllOrders, updateOrder, supplierStatistics, }  from "@/lib/api/supplier/orderApiSlice"
-
-
+import { type Order, supplierStatistics, fetchOrderRecords, updateOrderRecord, deleteOrderRecord, }  from "@/lib/api/supplier/orderApiSlice"
 
 interface orderState{
     orders: Order[];
     statistics: Order[],
     loading: false;
     error: string | null;
-
 }
 
 const initialState: orderState = {
@@ -23,27 +20,39 @@ const  orderSlice = createSlice({
     initialState,
     reducers:{ },
     extraReducers: (builder)=>{
-        builder.addCase(getAllOrders.pending, (state, action)=>{
+        builder.addCase(fetchOrderRecords.pending, (state, action)=>{
             state.loading = false
         })
-        builder.addCase(getAllOrders.fulfilled, (state, action)=>{
+        builder.addCase(fetchOrderRecords.fulfilled, (state, action)=>{
             state.loading = false
             state.orders = action.payload
         })
-        builder.addCase(getAllOrders.rejected, (state, action)=>{
+        builder.addCase(fetchOrderRecords.rejected, (state, action)=>{
             state.loading = false
             state.error = action.error.message
         })
 
-        builder.addCase(updateOrder.pending, (state, action)=>{
+        builder.addCase(deleteOrderRecord.pending, (state, action)=>{
             state.loading = false
         })
-        builder.addCase(updateOrder.fulfilled, (state, action)=>{
+        builder.addCase(deleteOrderRecord.fulfilled, (state, action)=>{
+            state.loading = false
+            state.orders = action.payload
+        })
+        builder.addCase(deleteOrderRecord.rejected, (state, action)=>{
+            state.loading = false
+            state.error = action.error.message
+        })
+
+        builder.addCase(updateOrderRecord.pending, (state, action)=>{
+            state.loading = false
+        })
+        builder.addCase(updateOrderRecord.fulfilled, (state, action)=>{
             state.loading = false
             state.orders = action.payload
 
         })
-        builder.addCase(updateOrder.rejected, (state, action)=>{
+        builder.addCase(updateOrderRecord.rejected, (state, action)=>{
             state.loading = false
         })
 
@@ -58,9 +67,9 @@ const  orderSlice = createSlice({
         builder.addCase(supplierStatistics.rejected, (state, action)=>{
             state.loading = false;
         })
-       
+
     }
 })
 
-export { getAllOrders, updateOrder, supplierStatistics }
+export { fetchOrderRecords, updateOrderRecord, deleteOrderRecord, supplierStatistics }
 export default orderSlice.reducer

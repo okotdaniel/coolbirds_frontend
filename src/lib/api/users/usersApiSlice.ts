@@ -9,13 +9,13 @@ export interface User {
    
   }
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export const getUser = createAsyncThunk(
     'users/getAll',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${BASE_URL}/account/users/me/`, {
+            const response = await fetch(`${baseUrl}/account/users/me/`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include"
@@ -38,7 +38,7 @@ export const addSupplier = createAsyncThunk(
     'supplier/add/',
     async (body: User, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/supplier/`, {
+        const response = await fetch(`${baseUrl}/supplier/`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -65,7 +65,7 @@ export const updateSupplier = createAsyncThunk(
   'supplier/update/id',
   async (body: User, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${BASE_URL}/supplier/update`, {
+      const response = await fetch(`${baseUrl}/supplier/update`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -89,7 +89,7 @@ export const deleteSupplier = createAsyncThunk(
     'deleteSupplier',
     async (body: { id: number }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/supplier/delete`, {
+        const response = await fetch(`${baseUrl}/supplier/delete`, {
           method: "DELETE",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
@@ -115,7 +115,7 @@ export const deleteSupplier = createAsyncThunk(
     'getUserById',
     async ({ id }: { id: number }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${BASE_URL}/supplier/get/${id}`, {
+        const response = await fetch(`${baseUrl}/supplier/get/${id}`, {
           method: "GET",
           headers: { 'Content-Type': 'application/json' },
         });

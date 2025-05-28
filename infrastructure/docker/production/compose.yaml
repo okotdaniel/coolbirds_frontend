@@ -1,0 +1,7 @@
+services:
+  command:
+    build:
+      context:
+      dockerfile:
+    image:
+    ports:

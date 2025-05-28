@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type Issues, getAllIssues, updateIssues }  from "@/lib/api/supplier/issuesApiSlice"
+import { type Issues, fetchIssueRecords, updateIssueRecord, deleteIssueRecord }  from "@/lib/api/supplier/issuesApiSlice"
 
 
 
@@ -21,32 +21,32 @@ const  contractsSlice = createSlice({
     initialState,
     reducers:{ },
     extraReducers: (builder)=>{
-        builder.addCase(getAllIssues.pending, (state, action)=>{
+        builder.addCase(fetchIssueRecords.pending, (state, action)=>{
             state.loading = false
         })
-        builder.addCase(getAllIssues.fulfilled, (state, action)=>{
+        builder.addCase(fetchIssueRecords.fulfilled, (state, action)=>{
             state.loading = false
             state.issues = action.payload
         })
-        builder.addCase(getAllIssues.rejected, (state, action)=>{
+        builder.addCase(fetchIssueRecords.rejected, (state, action)=>{
             state.loading = false
             state.error = action.error.message
         })
 
-        builder.addCase(updateIssues.pending, (state, action)=>{
+        builder.addCase(updateIssueRecord.pending, (state, action)=>{
             state.loading = false
         })
-        builder.addCase(updateIssues.fulfilled, (state, action)=>{
+        builder.addCase(updateIssueRecord.fulfilled, (state, action)=>{
             state.loading = false
             state.issues = action.payload
 
         })
-        builder.addCase(updateIssues.rejected, (state, action)=>{
+        builder.addCase(updateIssueRecord.rejected, (state, action)=>{
             state.loading = false
         })
        
     }
 })
 
-export { getAllIssues, updateIssues }
+export { fetchIssueRecords, updateIssueRecord }
 export default contractsSlice.reducer

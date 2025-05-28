@@ -1,12 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from "next/image"
 
 export function FeatureShowcase() {
   return (
     <Tabs defaultValue="production" className="w-full">
       <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
         <div className="space-y-2">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Explore Key Features</h2>
+          <h2 className="text-3xl text-blue-700 font-bold tracking-tighter sm:text-4xl">Explore Key Features</h2>
           <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
             See how Cool Birds helps you manage every aspect of your farm operations
           </p>
@@ -23,8 +24,9 @@ export function FeatureShowcase() {
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           <div className="flex items-center justify-center">
             <div className="relative w-full max-w-[500px] aspect-video overflow-hidden rounded-xl border bg-background shadow-xl">
-              <img
-                src="/features/production-tracking.png"
+              <Image
+                src={"/production.png"}
+                width={500} height={400}
                 alt="Production Tracking Dashboard"
                 className="object-cover w-full h-full"
               />
@@ -143,8 +145,9 @@ export function FeatureShowcase() {
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           <div className="flex items-center justify-center">
             <div className="relative w-full max-w-[500px] aspect-video overflow-hidden rounded-xl border bg-background shadow-xl">
-              <img
-                src="/features/health-tracking.png"
+              <Image
+                src={"/production.png"}
+                width={500} height={400}
                 alt="Health Tracking Dashboard"
                 className="object-cover w-full h-full"
               />

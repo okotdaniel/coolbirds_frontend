@@ -14,7 +14,6 @@ import { AlertCircle, Loader2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Link from "next/link"
 import {useLoginMutation}  from "@/lib/api/authentication/beta/AuthApiSlice"
-import {loginUser}  from "@/lib/api/authentication/authApiSlice"
 import {useRouter} from "next/navigation"
 import { toast } from "react-toastify"
 
@@ -134,7 +133,7 @@ export default function SignInForm() {
                   )}
                 </div>
 
-                <Button type="submit" className="w-full bg-blue-800 hover:bg-blue-700" disabled={isLoading}>
+                <Button type="submit" className="w-full bg-blue-700 hover:bg-blue-600" disabled={isLoading}>
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />

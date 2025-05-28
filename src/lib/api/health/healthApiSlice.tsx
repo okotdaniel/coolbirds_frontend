@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 
-export interface HealthCheckProp {
+export interface HealthCheckInterface {
     id?: string
     house: string,
     flock : string,
@@ -13,13 +13,13 @@ export interface HealthCheckProp {
 }
 
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export const fetchHealthChecks = createAsyncThunk(
   'health/fetchHealthChecks',
   async (_, { rejectWithValue }) => {
       try {
-          const response = await fetch(`${BASE_URL}/health/`, {
+          const response = await fetch(`${baseUrl}/health/`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
           });
@@ -36,13 +36,13 @@ export const fetchHealthChecks = createAsyncThunk(
   }
 );
 
-export const addHealthCheck = createAsyncThunk("production/addRecord", async (record: HealthCheckProp) => {
+export const addHealthCheck = createAsyncThunk("production/addRecord", async (record: HealthCheckInterface) => {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 500))
   return record
 })
 
-export const updateHealthCheck = createAsyncThunk("production/updateRecord", async (record: HealthCheckProp) => {
+export const updateHealthCheck = createAsyncThunk("production/updateRecord", async (record: HealthCheckInterface) => {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 500))
   return record
@@ -54,4 +54,3 @@ export const deleteHealthCheck = createAsyncThunk("production/deleteRecord", asy
   return id
 })
 
-// fetchHealthChecks, addHealthCheck, updateHealthCheck, deleteHealthCheck

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { type HealthCheckProp, fetchHealthChecks, addHealthCheck, updateHealthCheck, deleteHealthCheck } from '@/lib/api/health/healthApiSlice'
+import { type HealthCheckInterface, fetchHealthChecks, addHealthCheck, updateHealthCheck, deleteHealthCheck } from '@/lib/api/health/healthApiSlice'
 
 
 interface healthState{
-    item: HealthCheckProp[],
+    item: HealthCheckInterface[],
     loading: boolean,
     error: string | null
 }

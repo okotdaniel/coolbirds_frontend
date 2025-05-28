@@ -85,7 +85,7 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+              <h1 className="text-3xl text-blue-700 font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                 Cool Birds Blog
               </h1>
               <p className="max-w-[700px] text-muted-foreground md:text-xl">
@@ -262,7 +262,7 @@ export default function Page() {
             <div className="w-full max-w-md">
               <div className="flex space-x-2">
                 <Input type="email" placeholder="Enter your email" />
-                <Button type="submit">Subscribe</Button>
+                <Button className="bg-blue-700 hover:bg-blue-600" type="submit">Subscribe</Button>
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 By subscribing, you agree to our Terms of Service and Privacy Policy.

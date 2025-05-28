@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { type VaccineProps, fetchVaccineSchedule, addVaccineSchedule, updateVaccineSchedule, deleteVaccineSchedule } from '@/lib/api/health/vaccineApiSlice'
+import { type VaccineInterface, fetchVaccineSchedule, addVaccineSchedule, updateVaccineSchedule, deleteVaccineSchedule } from '@/lib/api/health/vaccineApiSlice'
 
 
 interface vaccineState{
-  item: VaccineProps[],
+  item: VaccineInterface[],
   loading: boolean,
   error: string | null
 }

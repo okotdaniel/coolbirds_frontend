@@ -20,7 +20,7 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+              <h1 className="text-3xl font-bold text-blue-700 tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                 Simple, transparent pricing
               </h1>
               <p className="max-w-[700px] text-muted-foreground md:text-xl">
@@ -55,7 +55,7 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-bold text-blue-700 tracking-tighter sm:text-4xl md:text-5xl">
                 Frequently asked questions
               </h2>
               <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -74,20 +74,20 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Still have questions?</h2>
+              <h2 className="text-3xl font-bold text-blue-700 tracking-tighter sm:text-4xl md:text-5xl">Still have questions?</h2>
               <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Our team is here to help. Contact us for more information about our plans or custom solutions.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link href="/contact">
-                <Button size="lg" className="gap-1.5">
+                <Button size="lg" className="gap-1.5 bg-blue-700 hover:bg-blue-600">
                   Contact Sales
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/demo">
-                <Button size="lg" variant="outline">
+                <Button size="lg" className="text-blue-700 hover:text-blue-700" variant="outline">
                   Request Demo
                 </Button>
               </Link>

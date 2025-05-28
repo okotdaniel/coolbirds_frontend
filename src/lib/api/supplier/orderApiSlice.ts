@@ -12,8 +12,9 @@ export interface Order{
 
 
 const BASE_API = 'http://localhost:8000/api/v1'
-export const getAllOrders = createAsyncThunk(
-    "getAllOrders",
+
+export const fetchOrderRecords = createAsyncThunk(
+    "fetchOrderRecords",
     async ( _, {rejectWithValue}) => {
         try{
             const response = await  fetch(`${BASE_API}/order/`,{
@@ -39,7 +40,6 @@ export const getAllOrders = createAsyncThunk(
     }
 )
 
-
 export const supplierStatistics = createAsyncThunk(
   'order/statistics',
   async (_, { rejectWithValue }) => {
@@ -61,9 +61,9 @@ export const supplierStatistics = createAsyncThunk(
   }
 );
 
-export const updateOrder = createAsyncThunk(
+export const updateOrderRecord = createAsyncThunk(
 
-    'updateOrder/id',
+    'updateOrderRecord/id',
     async (body: Order, { rejectWithValue }) => {
       try {
         const response = await fetch(`${BASE_API}/order/${body.id}`, {
@@ -83,5 +83,31 @@ export const updateOrder = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
-  );
-    
+);
+   
+export const deleteOrderRecord = createAsyncThunk(
+    "deleteOrderRecord",
+    async ( _, {rejectWithValue}) => {
+        try{
+            const response = await  fetch(`${BASE_API}/order/`,{
+                method: "GET",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                // credentials: "include"
+            })
+            if (!response.ok){
+              throw new Error("Failed to fetch suppliers");
+            }else{
+              const data = await response.json();
+              return data;
+            }
+            
+        }catch(error){
+            rejectWithValue(error.message)
+        }finally{
+            console.log("finally")
+        }
+
+    }
+)

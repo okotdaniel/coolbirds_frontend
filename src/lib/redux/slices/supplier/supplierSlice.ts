@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { type Supplier,  
-    getAllSuppliers, 
+    fetchSupplierRecords, 
     addSupplier, 
     updateSupplier, 
     deleteSupplier,
     supplierByRanking,
-    
 } from '@/lib/api/supplier/supplierApiSlice'
 
   interface SupplierState {
@@ -30,14 +29,14 @@ const supplierSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder)=>{
-        builder.addCase(getAllSuppliers.pending, (state) => {
+        builder.addCase(fetchSupplierRecords.pending, (state) => {
             state.loading = true;
         })
-        builder.addCase( getAllSuppliers.fulfilled, (state, action) =>{
+        builder.addCase( fetchSupplierRecords.fulfilled, (state, action) =>{
             state.loading = false;
             state.suppliers = action.payload;
         })
-        builder.addCase( getAllSuppliers.rejected, (state, action)=>{
+        builder.addCase( fetchSupplierRecords.rejected, (state, action)=>{
             state.loading = false;
             // state.error = action.error.message;
         })
@@ -87,5 +86,5 @@ const supplierSlice = createSlice({
             
     }
 })
-export { getAllSuppliers, addSupplier, updateSupplier, deleteSupplier, supplierByRanking };
+export { fetchSupplierRecords, addSupplier, updateSupplier, deleteSupplier, supplierByRanking };
 export default supplierSlice.reducer

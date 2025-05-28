@@ -32,9 +32,9 @@ import {
 
 const data = {
   user: {
-    name: "Daniel",
-    email: "m@example.com",
-    // avatar: "/avatars/shadcn.jpg",
+    name: "Admin",
+    email: "admin@biyinzikapoultry.com",
+    avatar: "/vatar.png",
   },
   navMain: [
     {
@@ -47,6 +47,16 @@ const data = {
       title: "Health",
       url: "health",
       icon: BookOpen,
+    },
+    {
+      title: "Supplier",
+      url: "supplier",
+      icon: BookOpen,
+    },
+    {
+      title: "Staff",
+      url: "staff",
+      icon: User,
     },
     {
       title: "Flock",
@@ -63,23 +73,14 @@ const data = {
       url: "feed",
       icon: ShoppingBasketIcon,
     },
+    // {
+    //   title: "Income & expenses",
+    //   url: "income",
+    //   icon: CircleDollarSign,
+    // },
+
     {
-      title: "Income & expenses",
-      url: "income",
-      icon: CircleDollarSign,
-    },
-    {
-      title: "Supplier",
-      url: "supplier",
-      icon: BookOpen,
-    },
-    {
-      title: "Staff",
-      url: "staff",
-      icon: User,
-    },
-    {
-      title: "AI Insights",
+      title: "Ask Nkoko AI",
       url: "insights",
       icon: Sparkles,
     },
@@ -128,8 +129,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Avira </span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">Biyinzika </span>
+                  <span className="truncate text-xs">Poultry Farm</span>
                 </div>
               </a>
             </SidebarMenuButton>

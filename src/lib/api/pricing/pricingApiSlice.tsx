@@ -1,7 +1,7 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export interface UserProps{
   id: number,
@@ -48,7 +48,7 @@ export interface SubscriptionProp {
 
 export const fetchCurrentUserId = createAsyncThunk('fetchCurrentUser', async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${BASE_URL}/users/me`, {
+            const response = await fetch(`${baseUrl}/users/me`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -74,7 +74,7 @@ export const fetchCurrentUserId = createAsyncThunk('fetchCurrentUser', async (_,
         try {
             const customerId = await fetchCurrentUserId()
 
-            const response = await fetch(`${BASE_URL}/payments/subscription/${customerId}`, {
+            const response = await fetch(`${baseUrl}/payments/subscription/${customerId}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -97,7 +97,7 @@ export const fetchCurrentUserId = createAsyncThunk('fetchCurrentUser', async (_,
         try {
             const customerId = fetchCurrentUserId()
 
-            const response = await fetch(`${BASE_URL}/payments/subscription/${customerId}`, {
+            const response = await fetch(`${baseUrl}/payments/subscription/${customerId}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -119,7 +119,7 @@ export const fetchTransactionRecords = createAsyncThunk(
   'transaction/fetchTransactionRecords',
   async (_, { rejectWithValue }) => {
       try {
-          const response = await fetch(`${BASE_URL}/payments/transactions/`, {
+          const response = await fetch(`${baseUrl}/payments/transactions/`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
           });
@@ -172,7 +172,7 @@ export const deleteSubscriptionRecord = createAsyncThunk("deleteRecord", async (
     // Simulate a delay
     try {
         
-        const response = await fetch(`${BASE_URL}/payments/subscription/${subscriptionId}/cancel`, {
+        const response = await fetch(`${baseUrl}/payments/subscription/${subscriptionId}/cancel`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });

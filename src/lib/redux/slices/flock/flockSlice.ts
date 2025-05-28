@@ -37,34 +37,7 @@ const sampleFlocks: Flock[] = [
     mortality: 1.2,
     avgWeight: 1.8,
   },
-  {
-    id: "FL002",
-    name: "Batch B-2025",
-    type: "Layer",
-    breed: "Lohmann Brown",
-    house: "House 2",
-    quantity: 4500,
-    age: 160,
-    status: "Productive",
-    startDate: "Oct 15, 2024",
-    productionRate: 94,
-    mortality: 1.5,
-    avgWeight: 1.9,
-  },
-  {
-    id: "FL003",
-    name: "Batch C-2025",
-    type: "Broiler",
-    breed: "Ross 308",
-    house: "House 3",
-    quantity: 3800,
-    age: 28,
-    status: "Growing",
-    startDate: "Feb 25, 2025",
-    productionRate: 0,
-    mortality: 0.8,
-    avgWeight: 1.2,
-  },
+
 ]
 
 const initialState: FlockState = {

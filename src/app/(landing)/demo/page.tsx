@@ -12,7 +12,7 @@ export default function Page() {
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                <h1 className="text-3xl text-blue-700 font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   See Cool Birds in action
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
@@ -45,7 +45,7 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl text-blue-700 font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 What to expect from your demo
               </h2>
               <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -97,7 +97,7 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl text-blue-700 font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Frequently asked questions
               </h2>
               <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -141,22 +141,22 @@ export default function Page() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl text-blue-700 font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Ready to see Cool Birds in action?
               </h2>
-              <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Schedule your personalized demo today or start your 14-day free trial.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link href="#demo-form">
-                <Button size="lg" className="gap-1.5">
+                <Button size="lg" className="gap-1.5 bg-blue-700 hover:bg-blue-600 ">
                   Schedule Demo
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" className="text-blue-700">
                   Start Free Trial
                 </Button>
               </Link>

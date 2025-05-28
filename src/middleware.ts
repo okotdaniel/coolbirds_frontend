@@ -26,42 +26,42 @@ export async function middleware(request: NextRequest) {
 
   // 4. Handle protected routes
   if (isProtected) {
-    // try {
-    //   const verifyResponse = await fetch('http://127.0.0.1:8000/api/v1/accounts/verify/', {
-    //     method: 'POST',
-    //     credentials: 'include',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(token_body)
-    //   })
-    //   if (!verifyResponse.ok) {
-    //     const loginUrl = new URL('/login', request.url)
-    //     // loginUrl.searchParams.set('from', request.nextUrl.pathname)
-    //     return NextResponse.redirect(loginUrl)
-    //   }
-    // } catch (error) {
-    //   console.error('Auth verification failed:', error)
-    //   // return NextResponse.redirect(new URL('/login?error=auth_failed', request.url))
-    // }
+    try {
+      const verifyResponse = await fetch('http://127.0.0.1:8000/api/v1/accounts/verify/', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(token_body)
+      })
+      if (!verifyResponse.ok) {
+        const loginUrl = new URL('/login', request.url)
+        // loginUrl.searchParams.set('from', request.nextUrl.pathname)
+        return NextResponse.redirect(loginUrl)
+      }
+    } catch (error) {
+      console.error('Auth verification failed:', error)
+      // return NextResponse.redirect(new URL('/login?error=auth_failed', request.url))
+    }
   }
 
   // 5. Prevent authenticated users from accessing auth routes
   const isAuthRoute = publicRoutes.includes(request.nextUrl.pathname)
   if (isAuthRoute) {
-    // const verifyResponse = await fetch('http://127.0.0.1:8000/api/v1/accounts/verify/', {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(token_body)
+    const verifyResponse = await fetch('http://127.0.0.1:8000/api/v1/accounts/verify/', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(token_body)
 
-    // })
+    })
 
-    // if (verifyResponse.ok) {
-    //   return NextResponse.redirect(new URL('/dashboard', request.url))
-    // }
+    if (verifyResponse.ok) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
   }
 
   return NextResponse.next()

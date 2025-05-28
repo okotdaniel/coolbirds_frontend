@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 
-export interface ProductionProp {
+export interface ProductionInterface {
   id: string
   date: string
   house: string
@@ -14,13 +14,13 @@ export interface ProductionProp {
   notes: string
 }
 
-const BASE_URL = 'http://localhost:8000/api/v1'
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`
 
 export const fetchProductionRecords = createAsyncThunk(
   'suppliers/fetchProductionRecords',
   async (_, { rejectWithValue }) => {
       try {
-          const response = await fetch(`${BASE_URL}/produce/`, {
+          const response = await fetch(`${baseUrl}/produce/`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
           });
@@ -37,13 +37,13 @@ export const fetchProductionRecords = createAsyncThunk(
   }
 );
 
-export const addProductionRecord = createAsyncThunk("production/addRecord", async (record: ProductionProp) => {
+export const addProductionRecord = createAsyncThunk("production/addRecord", async (record: ProductionInterface) => {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 500))
   return record
 })
 
-export const updateProductionRecord = createAsyncThunk("production/updateRecord", async (record: ProductionProp) => {
+export const updateProductionRecord = createAsyncThunk("production/updateRecord", async (record: ProductionInterface) => {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 500))
   return record
