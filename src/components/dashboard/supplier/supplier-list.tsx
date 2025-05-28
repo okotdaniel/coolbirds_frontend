@@ -158,8 +158,18 @@ export default function SupplierList(){
                     </Card>
                     
                   ))}
-                  <SupplierForm open={formOpen} onOpenChange={setFormOpen} initialData={selectedSupplier} />
-                  <DeleteConfirmation open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} onConfirm={confirmDelete} entityName="supplier" title="Delete Supplier" description={`Are you sure you want to delete ${selectedSupplier?.name}?`}/>
+                  <SupplierForm 
+                    open={formOpen} 
+                    onOpenChange={setFormOpen} 
+                    initialData={selectedSupplier} 
+                  />
+                  <DeleteConfirmation
+                    title="Delete Supplier" 
+                    description={`Are you sure you want to delete ${selectedSupplier?.name}?`}
+                    open={deleteDialogOpen} 
+                    onOpenChange={setDeleteDialogOpen} 
+                    onConfirm={confirmDelete} entityName="supplier" 
+                  />
           
                 </div>
         </>

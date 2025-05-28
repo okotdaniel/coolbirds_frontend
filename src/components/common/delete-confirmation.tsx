@@ -36,10 +36,16 @@ export function DeleteConfirmation({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>  {description} This will permanently delete the {entityName}. </AlertDialogDescription>
+          <AlertDialogDescription>
+              {description} This will permanently delete the {entityName}.
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction  onClick={onConfirm}  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"  disabled={isLoading} >
+          <AlertDialogAction  
+            onClick={onConfirm}  
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"  
+            disabled={isLoading} 
+          >
             {isLoading ? ( <> <Loader2 className="mr-2 h-4 w-4 animate-spin" />  Deleting... </> ) : (  "Delete" )}
           </AlertDialogAction>
           <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
