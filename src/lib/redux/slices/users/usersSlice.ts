@@ -31,37 +31,7 @@ const supplierSlice = createSlice({
             state.loading = false;
             // state.error = action.error.message;
         })
-
-        // // add suppliers 
-        // .addCase(addSupplier.pending, (state) => {
-        //     state.loading = true;
-        // })
-        // .addCase( addSupplier.fulfilled, (state, action) =>{
-        //     state.loading = false;
-        //     state.suppliers = action.payload;
-        // })
-        // .addCase( addSupplier.rejected, (state, action)=>{
-        //     state.loading = false;
-        //     // state.error = action.error.message;
-        // })
-
-        // // updateSupplier
-        // .addCase(updateSupplier.pending, (state) => {
-        //     state.loading = true;
-        // })
-        // .addCase( updateSupplier.fulfilled, (state, action) =>{
-        //     state.loading = false;
-        //     state.suppliers = action.payload;
-        // })
-        // .addCase( updateSupplier.rejected, (state, action)=>{
-        //     state.loading = false;
-        //     // state.error = action.error.message;
-        // })
-
-        // .addCase(deleteSupplier.fulfilled, (state, action)=>{
-        //     state.loading = false;
-        // })
-            
+        
     }
 })
 export { getUser,  };
